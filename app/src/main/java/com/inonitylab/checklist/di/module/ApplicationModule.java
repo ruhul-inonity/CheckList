@@ -2,6 +2,10 @@ package com.inonitylab.checklist.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.inonitylab.checklist.db.DataManager;
+import com.inonitylab.checklist.db.PreferencesHelper;
 
 import javax.inject.Singleton;
 
@@ -32,4 +36,17 @@ public class ApplicationModule {
     Application provideApplication(){
         return mApplication;
     }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPrefs() {
+        return mApplication.getSharedPreferences(PreferencesHelper.PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(Context context, PreferencesHelper sharedPref) {
+        return new DataManager(context,sharedPref);
+    }
+
 }
