@@ -7,4 +7,8 @@ package com.inonitylab.checklist.db;
 public interface IPreferencesHelper {
     void setUserName(String userName);
     String getUserName();
+
+    void setFirstTimeStatus(boolean flag);
+    boolean isFirstTime();
+
 }

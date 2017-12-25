@@ -13,6 +13,7 @@ public class PreferencesHelper implements IPreferencesHelper {
     public static final String PREF_NAME = "CHECKLISTPREFS";
 
     public static final String PREF_KEY_USER_NAME = "name";
+    public static final String PREF_KEY_FIRST_TIME ="is_demo_available";
 
     private final SharedPreferences mPreferenceHelper;
 
@@ -30,5 +31,15 @@ public class PreferencesHelper implements IPreferencesHelper {
     @Override
     public String getUserName() {
         return mPreferenceHelper.getString(PREF_KEY_USER_NAME,null);
+    }
+
+    @Override
+    public void setFirstTimeStatus(boolean flag) {
+        mPreferenceHelper.edit().putBoolean(PREF_KEY_FIRST_TIME, flag).apply();
+    }
+
+    @Override
+    public boolean isFirstTime() {
+        return mPreferenceHelper.getBoolean(PREF_KEY_FIRST_TIME,true);
     }
 }

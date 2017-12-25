@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.inonitylab.checklist.db.DataManager;
+import com.inonitylab.checklist.db.DbHelper;
 import com.inonitylab.checklist.db.PreferencesHelper;
 
 import javax.inject.Singleton;
@@ -45,8 +46,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(Context context, PreferencesHelper sharedPref) {
-        return new DataManager(context,sharedPref);
+    DbHelper provideDbHelper(Context context) {
+        return new DbHelper(context);
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(Context context, PreferencesHelper sharedPref, DbHelper dbHelper) {
+        return new DataManager(context,sharedPref,dbHelper);
     }
 
 }

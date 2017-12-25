@@ -19,5 +19,6 @@ public interface ApplicationComponent {
 
     void inject(CheckListApp checkListApp);
     void inject(MainActivity mainActivity);
+    //void inject(CheckListAdapter check);
 
 }
