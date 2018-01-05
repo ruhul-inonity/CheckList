@@ -1,14 +1,14 @@
 package com.inonitylab.checklist.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.inonitylab.checklist.CheckListApp;
 import com.inonitylab.checklist.R;
-import com.inonitylab.checklist.db.DataManager;
+import com.inonitylab.checklist.db.PreferencesHelper;
 
 import javax.inject.Inject;
 
@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextName;
 
     @Inject
-    DataManager mDataManager;
+    PreferencesHelper preferencesHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +30,25 @@ public class LoginActivity extends AppCompatActivity {
         ((CheckListApp) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
     }
-    
+
     @OnClick(R.id.buttonStart)
-    public void onBttonStartClicked(){
-        if (editTextName.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),"Please Enter Your Name",Toast.LENGTH_LONG).show();
-        }else {
+    public void onBttonStartClicked() {
+        if (!editTextName.getText().toString().isEmpty()) {
             saveUserName();
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
+            gotoLogin();
+        } else if (preferencesHelper.getUserName() == null) {
+            Toast.makeText(getApplicationContext(), "Please Enter Your Name", Toast.LENGTH_LONG).show();
+        } else {
+            gotoLogin();
         }
     }
 
     private void saveUserName() {
-        mDataManager.setUserName(editTextName.getText().toString());
+        preferencesHelper.setUserName(editTextName.getText().toString());
+    }
+
+    private void gotoLogin() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

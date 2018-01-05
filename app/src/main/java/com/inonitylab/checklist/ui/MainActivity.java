@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.inonitylab.checklist.CheckListApp;
 import com.inonitylab.checklist.R;
-import com.inonitylab.checklist.db.DataManager;
+import com.inonitylab.checklist.db.PreferencesHelper;
 
 import javax.inject.Inject;
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "MainActivity";
 
     @Inject
-    DataManager mDataManager;
+    PreferencesHelper preferencesHelper;
     @BindView(R.id.tvName)
     TextView textViewUserName;
 
@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textViewUserName.setText(mDataManager.getUserName());
+        textViewUserName.setText(preferencesHelper.getUserName());
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Howdy! "+mDataManager.getUserName(), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Howdy! "+preferencesHelper.getUserName(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
