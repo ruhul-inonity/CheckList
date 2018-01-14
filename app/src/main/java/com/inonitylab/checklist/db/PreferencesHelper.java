@@ -1,7 +1,6 @@
 package com.inonitylab.checklist.db;
 
 import android.content.SharedPreferences;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -11,16 +10,13 @@ import javax.inject.Singleton;
 @Singleton
 public class PreferencesHelper implements IPreferencesHelper {
     public static final String PREF_NAME = "CHECKLISTPREFS";
-
     public static final String PREF_KEY_USER_NAME = "name";
-
     private final SharedPreferences mPreferenceHelper;
 
     @Inject
     public PreferencesHelper(SharedPreferences sharedPreferences) {
         mPreferenceHelper = sharedPreferences;
     }
-
 
     @Override
     public void setUserName(String userName) {
@@ -29,6 +25,6 @@ public class PreferencesHelper implements IPreferencesHelper {
 
     @Override
     public String getUserName() {
-        return mPreferenceHelper.getString(PREF_KEY_USER_NAME,null);
+        return mPreferenceHelper.getString(PREF_KEY_USER_NAME, null);
     }
 }
